@@ -2,8 +2,6 @@ package com.branchin.beemylawyer.controllers;
 
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Lawyer;
-import com.branchin.beemylawyer.classes.Profil;
-import com.branchin.beemylawyer.classes.SignIn;
 import com.branchin.beemylawyer.dto.AccountDTO;
 import com.branchin.beemylawyer.dto.LawyerDTO;
 import com.branchin.beemylawyer.dto.LoginDTO;
@@ -21,10 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -63,6 +58,10 @@ public class accountController {
         logger.info("CREATE ACCOUNT");
         logger.info(accountDTO.toString());
 
+        if(this.accountService.getAccountByUseremail(accountDTO.getUseremail())!=null) {
+            return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
+        }
+
         UUID uuid = UUID.randomUUID();
         accountDTO.setId(String.valueOf(uuid));
 
@@ -94,8 +93,7 @@ public class accountController {
                 return new ResponseEntity<>(responseDTO,HttpStatus.BAD_REQUEST);
             }
         }
-        ResponseDTO responseDTO=new ResponseDTO("NOT FOUND");
-        return new ResponseEntity<>(responseDTO,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value="/account/logout")

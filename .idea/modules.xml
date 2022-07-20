@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/beemylawyer.test.iml" filepath="$PROJECT_DIR$/.idea/modules/beemylawyer.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/beemylawyerg.iml" filepath="$PROJECT_DIR$/.idea/beemylawyerg.iml" />
     </modules>
   </component>

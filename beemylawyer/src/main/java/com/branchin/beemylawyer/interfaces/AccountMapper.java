@@ -1,9 +1,7 @@
 package com.branchin.beemylawyer.interfaces;
 
 import com.branchin.beemylawyer.classes.Account;
-import com.branchin.beemylawyer.classes.Lawyer;
 import com.branchin.beemylawyer.dto.AccountDTO;
-import com.branchin.beemylawyer.dto.LawyerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

@@ -69,11 +69,18 @@ public class userController {
 
     @MessageMapping("/profil")   /*** client sends data to URL /app/profil to reach this websocket ***/
     @SendTo("/lawyers/public")   /*** client who wants to receive message from this function will listen to the topic
-                                     lawyers/public ***/
+                                     /lawyers/public ***/
     public ProfilDTO receiveNewProfil(@Payload ProfilDTO profilDTO) {
         logger.info("websocket profil received");
         logger.info(profilDTO.getBio());
        return profilDTO;
+    }
+
+    @MessageMapping("random")
+    @SendTo("/lawyers/randomDes")
+    public String receiveRan(@Payload String msg) {
+        logger.info(msg);
+        return "123456";
     }
 
 

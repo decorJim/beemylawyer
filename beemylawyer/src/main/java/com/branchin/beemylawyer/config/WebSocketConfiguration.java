@@ -29,7 +29,10 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
        registry.setApplicationDestinationPrefixes("/app");
+       /*** all socket data coming from client will pass through routing /app before going to MessageMapping functions
+        client send function all need to add /app/funcMappingDestination ***/
        registry.enableSimpleBroker("/lawyers");
+       /*** all socket data will be sent to broker /lawyers before going back to client ***/
        registry.setUserDestinationPrefix("/user");
     }
     @Override

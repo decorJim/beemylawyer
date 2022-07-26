@@ -15,6 +15,9 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class userController {
 
@@ -64,6 +67,19 @@ public class userController {
             return new ResponseEntity<>(profilDTO, HttpStatus.OK);
         }
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    @GetMapping(value="/user/profil/all")
+    public ResponseEntity<List<ProfilDTO>> getAllProfil() {
+        List<Account> accounts=this.accountService.getAllAccount();
+        List<ProfilDTO> profils=new ArrayList<>();
+        for(Account account:accounts) {
+            profils.add(new ProfilDTO(account.getId(),account.getUseremail(),account.getFname(),account.getLname(),
+                    account.getBio(),account.getCposition(),account.getSkills(),account.getPic(),account.getPhonenumber())
+            );
+        }
+        return new ResponseEntity<>(profils,HttpStatus.OK);
     }
 
 

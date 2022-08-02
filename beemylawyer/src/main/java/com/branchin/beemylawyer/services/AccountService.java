@@ -3,6 +3,7 @@ package com.branchin.beemylawyer.services;
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Profil;
 import com.branchin.beemylawyer.classes.SignIn;
+import com.branchin.beemylawyer.dto.ProfilDTO;
 import com.branchin.beemylawyer.repository.AccountRepository;
 import com.branchin.beemylawyer.repository.SignInRepository;
 import org.slf4j.Logger;
@@ -54,4 +55,5 @@ public class AccountService {
     public List<Account> getAllAccount() {
         return this.accountRepository.findAll();
     }
+
 }

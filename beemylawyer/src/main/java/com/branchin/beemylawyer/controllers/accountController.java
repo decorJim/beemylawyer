@@ -2,10 +2,7 @@ package com.branchin.beemylawyer.controllers;
 
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Lawyer;
-import com.branchin.beemylawyer.dto.AccountDTO;
-import com.branchin.beemylawyer.dto.LawyerDTO;
-import com.branchin.beemylawyer.dto.LoginDTO;
-import com.branchin.beemylawyer.dto.ResponseDTO;
+import com.branchin.beemylawyer.dto.*;
 import com.branchin.beemylawyer.interfaces.AccountMapper;
 import com.branchin.beemylawyer.interfaces.LawyerMapper;
 import com.branchin.beemylawyer.services.AccountService;
@@ -16,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +32,9 @@ public class accountController {
 
     @Autowired
     private ProfilService profilService;
+
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
 
     private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
@@ -71,6 +73,8 @@ public class accountController {
         String encryptedPassword=this.passwordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encryptedPassword);
         Account a1=AccountMapper.INSTANCE.accountDTOtoAccount(accountDTO);
+        ProfilDTO profilDTO=this.profilService.getProfilFromAccount(a1);
+        simpMessagingTemplate.convertAndSend("/lawyers/public",profilDTO);
         return new ResponseEntity<>(AccountMapper.INSTANCE.accountToAccountDTO(accountService.create(a1)),HttpStatus.CREATED);
     }
 

@@ -44,6 +44,16 @@ CREATE TABLE IF NOT EXISTS beemylawyerSchema.signedin(
    useremail VARCHAR(25) NOT NULL,
    signedindate DATE NOT NULL,
    PRIMARY KEY(useremail)
-)
+);
+
+CREATE TABLE IF NOT EXISTS beemylawyerSchema.request(
+   id VARCHAR NOT NULL,
+   lawyerid VARCHAR(25),
+   clientid VARCHAR(25),
+   description VARCHAR(200) NOT NULL,
+   creationdate DATE NOT NULL,
+   state BOOLEAN,
+   PRIMARY KEY(id)
+);
 
 

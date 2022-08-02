@@ -27,23 +27,16 @@ public class userController {
     AccountService accountService;
 
     @Autowired
+    ProfilService profilService;
+
+    @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping(value = "/user/profil/{useremail}")
     public ResponseEntity<ProfilDTO> getUserprofil(@PathVariable String useremail) {
         Account account=this.accountService.getAccountByUseremail(useremail);
         if(account!=null) {
-            ProfilDTO profilDTO = new ProfilDTO(
-                    account.getId(),
-                    account.getUseremail(),
-                    account.getFname(),
-                    account.getLname(),
-                    account.getBio(),
-                    account.getCposition(),
-                    account.getSkills(),
-                    account.getPic(),
-                    account.getPhonenumber()
-            );
+            ProfilDTO profilDTO=this.profilService.getProfilFromAccount(account);
             return new ResponseEntity<>(profilDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,6 +57,7 @@ public class userController {
             account.setPhonenumber(profilDTO.getPhonenumber());
             System.out.println(account.getSkills());
             this.accountService.editAccount(account);
+            this.simpMessagingTemplate.convertAndSend("/lawyers/editedProfil",profilDTO);
             return new ResponseEntity<>(profilDTO, HttpStatus.OK);
         }
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -75,9 +69,7 @@ public class userController {
         List<Account> accounts=this.accountService.getAllAccount();
         List<ProfilDTO> profils=new ArrayList<>();
         for(Account account:accounts) {
-            profils.add(new ProfilDTO(account.getId(),account.getUseremail(),account.getFname(),account.getLname(),
-                    account.getBio(),account.getCposition(),account.getSkills(),account.getPic(),account.getPhonenumber())
-            );
+            profils.add(this.profilService.getProfilFromAccount(account));
         }
         return new ResponseEntity<>(profils,HttpStatus.OK);
     }

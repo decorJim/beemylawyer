@@ -42,6 +42,16 @@ public class userController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/user/profil/id/{id}")
+    public ResponseEntity<ProfilDTO> getLawyerProfil(@PathVariable String id) {
+        Account account=this.accountService.getAccountById(id).get();
+        if(account!=null) {
+            ProfilDTO profilDTO=this.profilService.getProfilFromAccount(account);
+            return new ResponseEntity<>(profilDTO,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PutMapping(value="/user/profil/modify")
     public ResponseEntity<ProfilDTO> editUserprofil(@RequestBody ProfilDTO profilDTO) {
         /** Profil newProfil=ProfilMapper.INSTANCE.profilDTOToProfil(profilDTO); ***/

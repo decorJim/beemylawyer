@@ -24,27 +24,11 @@ CREATE TABLE IF NOT EXISTS beemylawyerSchema.account(
    pic VARCHAR,
    signedindate DATE,
    signedoutdate DATE,
+   signedin BOOLEAN,
+   stars NUMERIC,
    PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS beemylawyerSchema.profil(
-   id VARCHAR NOT NULL,
-   useremail VARCHAR(25),
-   fname VARCHAR(20) NOT NULL,
-   lname VARCHAR(20) NOT NULL,
-   bio VARCHAR NOT NULL,
-   cposition VARCHAR,
-   skills BYTEA,
-   pic VARCHAR,
-   phonenumber VARCHAR NOT NULL,
-   PRIMARY KEY(id)
-);
-
-CREATE TABLE IF NOT EXISTS beemylawyerSchema.signedin(
-   useremail VARCHAR(25) NOT NULL,
-   signedindate DATE NOT NULL,
-   PRIMARY KEY(useremail)
-);
 
 CREATE TABLE IF NOT EXISTS beemylawyerSchema.request(
    id VARCHAR NOT NULL,

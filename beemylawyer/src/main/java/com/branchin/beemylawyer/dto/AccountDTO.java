@@ -39,4 +39,8 @@ public class AccountDTO implements Serializable {
     private Date signIn;
     @JsonProperty("signedoutdate")
     private Date signOut;
+    @JsonProperty("signedin")
+    private boolean signedIn;
+    @JsonProperty("stars")
+    private Integer stars;
 }

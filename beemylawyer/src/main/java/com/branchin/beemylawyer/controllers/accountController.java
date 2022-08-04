@@ -57,19 +57,12 @@ public class accountController {
 
     @PostMapping(value="/account/createAccount")
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
-        logger.info("CREATE ACCOUNT");
-        logger.info(accountDTO.toString());
-
         if(this.accountService.getAccountByUseremail(accountDTO.getUseremail())!=null) {
             return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
-
         UUID uuid = UUID.randomUUID();
         accountDTO.setId(String.valueOf(uuid));
-
-        logger.info(accountDTO.getFname());
-        logger.info(accountDTO.getLname());
-
+        accountDTO.setStars(0);
         String encryptedPassword=this.passwordEncoder.encode(accountDTO.getPassword());
         accountDTO.setPassword(encryptedPassword);
         Account a1=AccountMapper.INSTANCE.accountDTOtoAccount(accountDTO);
@@ -87,6 +80,7 @@ public class accountController {
                 logger.info("MATCHES");
                 Date date=new Date();
                 account.setSignIn(date);
+                account.setSignedIn(true);
                 this.accountService.saveSignIn(account);
 
                 ResponseDTO responseDTO=new ResponseDTO("SUCCESS");
@@ -108,6 +102,7 @@ public class accountController {
             logger.info(account.getUseremail());
             Date date=new Date();
             account.setSignOut(date);
+            account.setSignedIn(false);
             this.accountService.signOut(account);
             ResponseDTO responseDTO=new ResponseDTO("SUCCESS");
             return new ResponseEntity<>(responseDTO,HttpStatus.OK);

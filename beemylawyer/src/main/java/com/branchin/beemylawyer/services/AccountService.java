@@ -1,25 +1,20 @@
 package com.branchin.beemylawyer.services;
 
 import com.branchin.beemylawyer.classes.Account;
-import com.branchin.beemylawyer.classes.Profil;
-import com.branchin.beemylawyer.classes.SignIn;
-import com.branchin.beemylawyer.dto.ProfilDTO;
 import com.branchin.beemylawyer.repository.AccountRepository;
-import com.branchin.beemylawyer.repository.SignInRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
 
     @Autowired
     AccountRepository accountRepository;
-    @Autowired
-    SignInRepository signInRepository;
 
     @Autowired
     ProfilService profilService;
@@ -54,6 +49,10 @@ public class AccountService {
 
     public List<Account> getAllAccount() {
         return this.accountRepository.findAll();
+    }
+
+    public Optional<Account> getAccountById(String id) {
+        return this.accountRepository.findById(id);
     }
 
 }

@@ -17,7 +17,8 @@ public class ProfilService {
                 account.getCposition(),
                 account.getSkills(),
                 account.getPic(),
-                account.getPhonenumber()
+                account.getPhonenumber(),
+                account.getStars()
         );
     }
 

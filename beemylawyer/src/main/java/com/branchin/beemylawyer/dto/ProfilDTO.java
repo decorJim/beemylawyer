@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.util.ArrayList;
 
 @Getter
@@ -31,4 +32,6 @@ public class ProfilDTO {
     private String pic;
     @JsonProperty("phonenumber")
     private String phonenumber;
+    @JsonProperty("stars")
+    private Integer stars;
 }

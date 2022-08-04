@@ -39,4 +39,8 @@ public class Account {
     private Date signIn;
     @Column(name="signedoutdate")
     private Date signOut;
+    @Column(name="signedin")
+    private boolean signedIn;
+    @Column(name="stars")
+    private Integer stars;
 }

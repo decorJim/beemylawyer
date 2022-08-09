@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS beemylawyerSchema.account(
    cposition VARCHAR,
    skills BYTEA,
    pic VARCHAR,
-   signedindate DATE,
-   signedoutdate DATE,
+   signedindate VARCHAR(35),
+   signedoutdate VARCHAR(35),
    signedin BOOLEAN,
    stars NUMERIC,
    PRIMARY KEY(id)
@@ -31,13 +31,15 @@ CREATE TABLE IF NOT EXISTS beemylawyerSchema.account(
 
 
 CREATE TABLE IF NOT EXISTS beemylawyerSchema.request(
-   id VARCHAR NOT NULL,
-   lawyerid VARCHAR(25),
-   clientid VARCHAR(25),
-   description VARCHAR(200) NOT NULL,
-   creationdate DATE NOT NULL,
-   state BOOLEAN,
-   PRIMARY KEY(id)
+    id VARCHAR NOT NULL,
+    lawyerid VARCHAR NOT NULL,
+    lawyername VARCHAR NOT NULL,
+    state VARCHAR NOT NULL,
+    clientname VARCHAR NOT NULL,
+    phonenumber VARCHAR NOT NULL,
+    clientemail VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
+    PRIMARY KEY(id)
 );
 
 

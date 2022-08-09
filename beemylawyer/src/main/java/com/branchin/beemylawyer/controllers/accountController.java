@@ -8,12 +8,12 @@ import com.branchin.beemylawyer.interfaces.LawyerMapper;
 import com.branchin.beemylawyer.services.AccountService;
 import com.branchin.beemylawyer.services.LawyerService;
 import com.branchin.beemylawyer.services.ProfilService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -25,18 +25,21 @@ import java.util.UUID;
 public class accountController {
 
     Logger logger= LoggerFactory.getLogger(accountController.class);
-    @Autowired
-    private LawyerService lawyerService;
-    @Autowired
-    private AccountService accountService;
+
 
     @Autowired
-    private ProfilService profilService;
+    AccountService accountService;
 
+    @Autowired
+    ProfilService profilService;
+
+    @Autowired
+    LawyerService lawyerService;
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
 
     private BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+
 
     @PostMapping(value="/createLawyer")
     public ResponseEntity<LawyerDTO> createLawyer(@RequestBody LawyerDTO lawyerDTO) {
@@ -78,7 +81,9 @@ public class accountController {
             logger.info("ACCOUNT FOUND");
             if (passwordEncoder.matches(login.getPassword(), account.getPassword())) {
                 logger.info("MATCHES");
-                Date date=new Date();
+
+                Date now=new Date();
+                String date=now.toString();
                 account.setSignIn(date);
                 account.setSignedIn(true);
                 this.accountService.saveSignIn(account);
@@ -100,7 +105,8 @@ public class accountController {
         if(account!=null) {
             logger.info("LOGGED OUT");
             logger.info(account.getUseremail());
-            Date date=new Date();
+            Date now=new Date();
+            String date=now.toString();
             account.setSignOut(date);
             account.setSignedIn(false);
             this.accountService.signOut(account);

@@ -16,7 +16,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
        registry.setApplicationDestinationPrefixes("/app");
        /*** all socket data coming from client will pass through routing /app before going to MessageMapping functions
         client send function all need to add /app/funcMappingDestination ***/
-       registry.enableSimpleBroker("/lawyers");
+       registry.enableSimpleBroker("/lawyers","/user");
        /*** all socket data will be sent to broker /lawyers before going back to client ***/
        registry.setUserDestinationPrefix("/user");
     }

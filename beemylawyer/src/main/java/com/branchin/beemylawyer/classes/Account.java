@@ -36,9 +36,9 @@ public class Account {
     @Column(name="pic")
     private String pic;
     @Column(name="signedindate")
-    private Date signIn;
+    private String signIn;
     @Column(name="signedoutdate")
-    private Date signOut;
+    private String signOut;
     @Column(name="signedin")
     private boolean signedIn;
     @Column(name="stars")

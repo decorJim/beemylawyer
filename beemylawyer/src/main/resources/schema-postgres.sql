@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS beemylawyerSchema.request(
     id VARCHAR NOT NULL,
     lawyerid VARCHAR NOT NULL,
     lawyername VARCHAR NOT NULL,
+    creationdate VARCHAR(50),
     state VARCHAR NOT NULL,
     clientname VARCHAR NOT NULL,
     phonenumber VARCHAR NOT NULL,

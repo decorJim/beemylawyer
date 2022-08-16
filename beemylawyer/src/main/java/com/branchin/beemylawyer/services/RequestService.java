@@ -19,6 +19,7 @@ public class RequestService {
                requestDTO.getId(),
                requestDTO.getLawyerId(),
                requestDTO.getLawyerName(),
+               requestDTO.getCreationDate(),
                requestDTO.getState(),
                requestDTO.getClientName(),
                requestDTO.getPhoneNumber(),

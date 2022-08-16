@@ -22,6 +22,8 @@ public class Request {
     private String lawyerId;
     @Column(name="lawyername")
     private String lawyerName;
+    @Column(name="creationdate")
+    private String creationDate;
     @Column(name="state")
     private String state;
     @Column(name = "clientname")

@@ -34,7 +34,7 @@ public class RequestService {
                 request.getId(),
                 request.getLawyerId(),
                 request.getLawyerName(),
-                request.getClientEmail(),
+                request.getCreationDate(),
                 request.getState(),
                 request.getClientName(),
                 request.getPhoneNumber(),

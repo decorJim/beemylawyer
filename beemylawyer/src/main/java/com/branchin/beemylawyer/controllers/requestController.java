@@ -2,7 +2,7 @@ package com.branchin.beemylawyer.controllers;
 
 import com.branchin.beemylawyer.classes.Request;
 import com.branchin.beemylawyer.dto.RequestDTO;
-import com.branchin.beemylawyer.services.AccountService;
+import com.branchin.beemylawyer.services.EmailService;
 import com.branchin.beemylawyer.services.RequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +23,13 @@ public class requestController {
     Logger logger= LoggerFactory.getLogger(requestController.class);
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
     @Autowired
-    SimpMessagingTemplate simpMessagingTemplate;
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    AccountService accountService;
+    private EmailService emailService;
 
     @PostMapping(value="/request/create")
     public ResponseEntity<RequestDTO> createRequest(@RequestBody RequestDTO requestDTO) {
@@ -49,10 +49,17 @@ public class requestController {
     @GetMapping(value="/request/lawyer/{id}")
     public ResponseEntity<List<RequestDTO>> getRequestByLawyer(@PathVariable String id) {
         List<RequestDTO> requestDTOList=new ArrayList<>();
-        for(Request it:this.requestService.getRequestByLawyerId(id)) {
+        for(Request it:this.requestService.getRequestsByLawyerId(id)) {
             logger.info(it.getId());
             requestDTOList.add(this.requestService.requestToDto(it));
         }
         return new ResponseEntity<>(requestDTOList,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/request/accept")
+    public ResponseEntity<RequestDTO> acceptRequest(@RequestBody RequestDTO requestDTO) {
+        this.emailService.sendConfirmationToAll(requestDTO);
+        Request request=this.requestService.dtoToRequest(requestDTO);
+        return new ResponseEntity<>(this.requestService.requestToDto(this.requestService.modifyRequest(request)),HttpStatus.OK);
     }
 }

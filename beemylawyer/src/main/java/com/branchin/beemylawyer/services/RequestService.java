@@ -48,7 +48,11 @@ public class RequestService {
         return this.requestRepository.save(request);
     }
 
-    public List<Request> getRequestByLawyerId(String id) {
+    public List<Request> getRequestsByLawyerId(String id) {
         return this.requestRepository.findAllByLawyerId(id);
+    }
+
+    public Request modifyRequest(Request request) {
+        return this.requestRepository.save(request);
     }
 }

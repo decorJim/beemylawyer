@@ -24,6 +24,10 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.24'
 	implementation "org.modelmapper:modelmapper:3.1.0"
 
+	// https://mavenlibs.com/maven/dependency/com.sun.mail/smtp
+	implementation group: 'com.sun.mail', name: 'smtp', version: '1.6.7'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
+
 	// for Main sources set
 	implementation "org.mapstruct:mapstruct:1.4.2.Final"
 	implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'

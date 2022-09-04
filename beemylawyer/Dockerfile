@@ -1,0 +1,7 @@
+FROM java:18.0.1.1
+
+EXPOSE 8080
+
+ADD build/libs/beemylawyer-0.0.1-SNAPSHOT.jar beemylawyer-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT["java","-jar","beemylawyer-0.0.1-SNAPSHOT.jar"]

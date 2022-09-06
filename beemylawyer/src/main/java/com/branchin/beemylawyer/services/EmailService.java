@@ -1,6 +1,7 @@
 package com.branchin.beemylawyer.services;
 
 import com.branchin.beemylawyer.classes.Account;
+import com.branchin.beemylawyer.classes.Request;
 import com.branchin.beemylawyer.dto.RequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,17 +20,21 @@ public class EmailService {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private RequestService requestService;
+
     public RequestDTO sendConfirmationToAll(RequestDTO requestDTO) {
+        Request request=this.requestService.getRequestById(requestDTO.getId()).get();
         String clientMsg="Congratulation ! a new request was accepted !";
         String lawyerMsg="Congratulation ! you just accepted a new request !";
-        Account account=this.accountService.getAccountById(requestDTO.getLawyerId()).get();
-        this.sendEmail(requestDTO,clientMsg,requestDTO.getClientEmail());
-        this.sendEmail(requestDTO,lawyerMsg,account.getUseremail());
+        Account account=this.accountService.getAccountById(request.getLawyerId()).get();
+        this.sendEmail(request,clientMsg, request.getClientEmail());
+        this.sendEmail(request,lawyerMsg, account.getUseremail());
         return requestDTO;
     }
 
-    public void sendEmail(RequestDTO requestDTO,String msgDescription,String toEmail) {
-        Account account=this.accountService.getAccountById(requestDTO.getLawyerId()).get();
+    public void sendEmail(Request request,String msgDescription,String toEmail) {
+        Account account=this.accountService.getAccountById(request.getLawyerId()).get();
 
         SimpleMailMessage message=new SimpleMailMessage();
         message.setFrom("beemylawyer@gmail.com");
@@ -37,15 +42,14 @@ public class EmailService {
         message.setSubject("new request accepted");
         message.setText(
                 msgDescription+"\n\n\n"+
-                "request id: "+requestDTO.getId()+"\n"+
-                        "lawyer name :"+requestDTO.getLawyerName()+"\n"+
+                "request id: "+request.getId()+"\n"+
+                        "lawyer name :"+request.getLawyerName()+"\n"+
                         "lawyer email :"+account.getUseremail()+"\n"+
-                        "creation date :"+requestDTO.getCreationDate()+"\n"+
-                        "state :"+requestDTO.getState()+"\n"+
-                        "client name :"+requestDTO.getClientName()+"\n"+
-                        "client email :"+requestDTO.getClientEmail()+"\n"+
-                        "phone number :"+requestDTO.getPhoneNumber()+"\n"+
-                        "request description :"+requestDTO.getDescription()+"\n"
+                        "creation date :"+request.getCreationDate()+"\n"+
+                        "client name :"+request.getClientName()+"\n"+
+                        "client email :"+request.getClientEmail()+"\n"+
+                        "phone number :"+request.getPhoneNumber()+"\n"+
+                        "request description :"+request.getDescription()+"\n"
         );
         this.mailSender.send(message);
         logger.info("mail sent to "+message.getTo().toString());

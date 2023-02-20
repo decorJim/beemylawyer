@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface AccountMapper {
-    AccountMapper INSTANCE= Mappers.getMapper(AccountMapper.class);
+    AccountMapper INSTANCE=Mappers.getMapper(AccountMapper.class);
 
     @Mapping(source="id",target = "id")
     AccountDTO accountToAccountDTO(Account account);

@@ -7,17 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService {
 
     @Autowired
     AccountRepository accountRepository;
-
-    @Autowired
-    ProfilService profilService;
 
     Logger logger= LoggerFactory.getLogger(AccountService.class);
     public Account create(Account account) {
@@ -28,31 +25,76 @@ public class AccountService {
             logger.info("email already exists");
             throw new IllegalStateException();
         }
-        return accountRepository.save(account);
+        try {
+            return accountRepository.save(account);
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return account;
+        }
     }
 
     public Account getAccountByUseremail(String email) {
-        return accountRepository.findByUseremail(email);
+        try {
+            return accountRepository.findByUseremail(email);
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            Account dummy=new Account();
+            return dummy;
+        }
     }
 
     public Account saveSignIn(Account account) {
-        return accountRepository.save(account);
+        try {
+            return accountRepository.save(account);
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return account;
+        }
     }
 
     public Account signOut(Account account) {
-        return accountRepository.save(account);
+        try {
+            return accountRepository.save(account);
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return account;
+        }
     }
 
     public Account editAccount(Account account) {
-        return accountRepository.save(account);
+        try {
+            return accountRepository.save(account);
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return account;
+        }
     }
 
     public List<Account> getAllAccount() {
-        return this.accountRepository.findAll();
+        List<Account> accounts=new ArrayList<>();
+        try {
+            accounts=this.accountRepository.findAll();
+            return accounts;
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return accounts;
+        }
     }
 
-    public Optional<Account> getAccountById(String id) {
-        return this.accountRepository.findById(id);
+    public Account getAccountById(String id) {
+        try {
+            return this.accountRepository.findById(id).get();
+        }
+        catch(Exception e) {
+            logger.debug(e.getMessage());
+            return new Account();
+        }
     }
 
 }

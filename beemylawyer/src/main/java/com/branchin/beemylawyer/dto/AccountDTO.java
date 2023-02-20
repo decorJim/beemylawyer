@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 @Getter
 @Setter
@@ -18,15 +18,15 @@ public class AccountDTO implements Serializable {
     @JsonProperty("id")
     public String id;
     @JsonProperty("useremail")
-    public String useremail;
+    private String useremail;
     @JsonProperty("password")
-    public String password;
+    private String password;
     @JsonProperty("fname")
-    public String fname;
+    private String fname;
     @JsonProperty("lname")
-    public String lname;
+    private String lname;
     @JsonProperty("phonenumber")
-    public String phonenumber;
+    private String phonenumber;
     @JsonProperty("bio")
     private String bio;
     @JsonProperty("cposition")

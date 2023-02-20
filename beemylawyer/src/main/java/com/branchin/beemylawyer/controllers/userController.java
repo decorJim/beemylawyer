@@ -44,7 +44,7 @@ public class userController {
 
     @GetMapping(value = "/user/profil/id/{id}")
     public ResponseEntity<ProfilDTO> getLawyerProfil(@PathVariable String id) {
-        Account account=this.accountService.getAccountById(id).get();
+        Account account=this.accountService.getAccountById(id);
         if(account!=null) {
             ProfilDTO profilDTO=this.profilService.getProfilFromAccount(account);
             return new ResponseEntity<>(profilDTO,HttpStatus.OK);

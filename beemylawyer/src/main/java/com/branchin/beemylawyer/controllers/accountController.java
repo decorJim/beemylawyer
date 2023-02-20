@@ -1,5 +1,8 @@
 package com.branchin.beemylawyer.controllers;
 
+import com.branchin.beemylawyer.builders.AccountBuilder;
+import com.branchin.beemylawyer.builders.Builder;
+import com.branchin.beemylawyer.builders.Director;
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Lawyer;
 import com.branchin.beemylawyer.dto.*;
@@ -9,6 +12,7 @@ import com.branchin.beemylawyer.services.AccountService;
 import com.branchin.beemylawyer.services.LawyerService;
 import com.branchin.beemylawyer.services.ProfilService;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,7 +30,6 @@ import java.util.UUID;
 public class accountController {
 
     Logger logger= LoggerFactory.getLogger(accountController.class);
-
 
     @Autowired
     AccountService accountService;
@@ -64,14 +68,16 @@ public class accountController {
             return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
         UUID uuid = UUID.randomUUID();
-        accountDTO.setId(String.valueOf(uuid));
-        accountDTO.setStars(0);
         String encryptedPassword=this.passwordEncoder.encode(accountDTO.getPassword());
+        accountDTO.setId(String.valueOf(uuid));
         accountDTO.setPassword(encryptedPassword);
-        Account a1=AccountMapper.INSTANCE.accountDTOtoAccount(accountDTO);
-        ProfilDTO profilDTO=this.profilService.getProfilFromAccount(a1);
+
+        Director director=new Director();
+        Account newaccount=director.buildAccount(accountDTO);
+
+        ProfilDTO profilDTO=this.profilService.getProfilFromAccount(newaccount);
         simpMessagingTemplate.convertAndSend("/lawyers/public",profilDTO);
-        return new ResponseEntity<>(AccountMapper.INSTANCE.accountToAccountDTO(accountService.create(a1)),HttpStatus.CREATED);
+        return new ResponseEntity<>(AccountMapper.INSTANCE.accountToAccountDTO(accountService.create(newaccount)),HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/account/login")

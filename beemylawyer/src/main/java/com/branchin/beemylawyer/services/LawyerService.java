@@ -24,6 +24,11 @@ public class LawyerService {
         logger.info("bio:"+lawyer.getBio());
         logger.info("stars:"+String.valueOf(lawyer.getStars()));
 
-        return lawyerRepository.save(lawyer);
+        try {
+            return lawyerRepository.save(lawyer);
+        }
+        catch (Exception e) {
+            return lawyer;
+        }
     }
 }

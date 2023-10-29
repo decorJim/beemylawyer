@@ -1,7 +1,6 @@
 package com.branchin.beemylawyer.controllers;
 
-import com.branchin.beemylawyer.builders.AccountBuilder;
-import com.branchin.beemylawyer.builders.Builder;
+
 import com.branchin.beemylawyer.builders.Director;
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Lawyer;
@@ -11,8 +10,6 @@ import com.branchin.beemylawyer.interfaces.LawyerMapper;
 import com.branchin.beemylawyer.services.AccountService;
 import com.branchin.beemylawyer.services.LawyerService;
 import com.branchin.beemylawyer.services.ProfilService;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -58,7 +56,7 @@ public class accountController {
         logger.info(lawyerDTO.getBio());
         logger.info(String.valueOf(lawyerDTO.getStars()));
         Lawyer l1=LawyerMapper.INSTANCE.lawyerDTOtoLawyer(lawyerDTO);
-        return new ResponseEntity<>(LawyerMapper.INSTANCE.lawyerToLawyerDTO(lawyerService.create(l1)),HttpStatus.CREATED);
+        return new ResponseEntity<>(LawyerMapper.INSTANCE.lawyertoLawyerDTO(lawyerService.create(l1)),HttpStatus.CREATED);
     }
 
 

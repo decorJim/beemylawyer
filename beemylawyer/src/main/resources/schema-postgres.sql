@@ -1,40 +1,38 @@
 SET search_path=beemylawyer;
 
-CREATE SCHEMA IF NOT EXISTS beemylawyerSchema;
-
-CREATE TABLE IF NOT EXISTS beemylawyerSchema.lawyer(
-  id VARCHAR NOT NULL,
-  fname VARCHAR(20) NOT NULL,
-  lname VARCHAR(20) NOT NULL,
-  bio VARCHAR(20) NOT NULL,
-  stars NUMERIC NOT NULL,
+CREATE TABLE IF NOT EXISTS lawyer(
+  id INT NOT NULL,
+  fname INT NOT NULL,
+  lname INT NOT NULL,
+  bio INT NOT NULL,
+  stars INT NOT NULL,
   PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS beemylawyerSchema.account(
+CREATE TABLE IF NOT EXISTS account(
    id VARCHAR NOT NULL,
-   useremail VARCHAR(25) NOT NULL,
-   password VARCHAR(60) NOT NULL,
-   fname VARCHAR(20) NOT NULL,
-   lname VARCHAR(20) NOT NULL,
+   useremail VARCHAR NOT NULL,
+   password VARCHAR NOT NULL,
+   fname VARCHAR NOT NULL,
+   lname VARCHAR NOT NULL,
    phonenumber VARCHAR,
    bio VARCHAR,
    cposition VARCHAR,
    skills BYTEA,
    pic VARCHAR,
-   signedindate VARCHAR(35),
-   signedoutdate VARCHAR(35),
+   signedindate VARCHAR,
+   signedoutdate VARCHAR,
    signedin BOOLEAN,
-   stars NUMERIC,
+   stars INT,
    PRIMARY KEY(id)
 );
 
 
-CREATE TABLE IF NOT EXISTS beemylawyerSchema.request(
+CREATE TABLE IF NOT EXISTS request(
     id VARCHAR NOT NULL,
     lawyerid VARCHAR NOT NULL,
     lawyername VARCHAR NOT NULL,
-    creationdate VARCHAR(50),
+    creationdate VARCHAR,
     state VARCHAR NOT NULL,
     clientname VARCHAR NOT NULL,
     phonenumber VARCHAR NOT NULL,

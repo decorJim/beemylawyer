@@ -12,7 +12,7 @@ public interface LawyerMapper {
 
     LawyerMapper INSTANCE = Mappers.getMapper( LawyerMapper.class );
     @Mapping(source="id",target = "id")
-    LawyerDTO lawyerToLawyerDTO(Lawyer lawyer);
+    LawyerDTO lawyertoLawyerDTO(Lawyer lawyer);
     @Mapping(source="id",target = "id")
     Lawyer lawyerDTOtoLawyer(LawyerDTO dto);
 

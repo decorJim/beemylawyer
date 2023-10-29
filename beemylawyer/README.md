@@ -1,3 +1,8 @@
+# basic requirements
+- make sure you have installed gradle somewhere
+- make sure that it is a version compatible with your Java use https://docs.gradle.org/current/userguide/compatibility.html 
+- In beemylawyer/gradle/wrapper/gradle-wrapper.properties make sure it is the same version as the one installed on your machine
+
 # beemylawyer
 backend code using spring boot main user data are stored in class Account.
 - @Autowired used to automatically initialise objects.

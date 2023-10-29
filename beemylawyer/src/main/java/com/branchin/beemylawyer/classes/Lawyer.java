@@ -4,25 +4,29 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
 @Entity
 @Data
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+/**
 @Table(name="lawyer")
+*/
 public class Lawyer {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    //@Column(name="id")
     private String id;
-    @Column(name = "fname")
+    //@Column(name = "fname")
     private String fname;
-    @Column(name = "lname")
+    //@Column(name = "lname")
     private String lname;
-    @Column(name = "bio")
+    //@Column(name = "bio")
     private String bio;
-    @Column(name = "stars")
+    //@Column(name = "stars")
     private Integer stars;
 
 

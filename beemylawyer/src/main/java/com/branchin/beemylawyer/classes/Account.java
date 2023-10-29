@@ -4,43 +4,46 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 
+/**
 @Entity
 @Data
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+/**
 @Table(name="account")
+*/
 public class Account {
     @Id
-    @Column(name = "id")
+    //@Column(name = "id")
     private String id;
-    @Column(name="useremail")
+    //@Column(name="useremail")
     private String useremail;
-    @Column(name = "password")
+    //@Column(name = "password")
     private String password;
-    @Column(name = "fname")
+    //@Column(name = "fname")
     private String fname;
-    @Column(name = "lname")
+    //@Column(name = "lname")
     private String lname;
-    @Column(name="phonenumber")
+    //@Column(name="phonenumber")
     private String phonenumber;
-    @Column(name="bio")
+    //@Column(name="bio")
     private String bio;
-    @Column(name="cposition")
+    //@Column(name="cposition")
     private String cposition;
-    @Column(name="skills")
+    //@Column(name="skills")
     private ArrayList<String> skills=new ArrayList<>();
-    @Column(name="pic")
+    //@Column(name="pic")
     private String pic;
-    @Column(name="signedindate")
+    //@Column(name="signedindate")
     private String signIn;
-    @Column(name="signedoutdate")
+    //@Column(name="signedoutdate")
     private String signOut;
-    @Column(name="signedin")
+    //@Column(name="signedin")
     private boolean signedIn;
-    @Column(name="stars")
+    //@Column(name="stars")
     private Integer stars;
 }

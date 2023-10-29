@@ -1,3 +1,4 @@
+/**
 package com.branchin.beemylawyer.repository;
 
 import com.branchin.beemylawyer.classes.Request;
@@ -8,3 +9,4 @@ import java.util.List;
 public interface RequestRepository extends JpaRepository<Request,String> {
    List<Request> findAllByLawyerId(String lawyerId);
 }
+*/

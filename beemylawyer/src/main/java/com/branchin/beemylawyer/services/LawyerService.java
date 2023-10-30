@@ -20,9 +20,7 @@ public class LawyerService {
     private LawyerRepository lawyerRepository;
     */
 
-    public ArrayList<Lawyer> lawyers=new ArrayList<>() {{
-
-    }};
+    public ArrayList<Lawyer> lawyers=new ArrayList<>();
 
     Logger logger= LoggerFactory.getLogger(LawyerService.class);
 
@@ -38,6 +36,7 @@ public class LawyerService {
             /**
             return lawyerRepository.save(lawyer);
              */
+            lawyers.add(lawyer);
             return lawyer;
         }
         catch (Exception e) {

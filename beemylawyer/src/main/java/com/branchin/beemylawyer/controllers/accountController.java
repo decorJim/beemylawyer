@@ -96,8 +96,6 @@ public class accountController {
 
     @PostMapping(value = "/account/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody LoginDTO login) {
-        System.out.println(login.getUseremail());
-        System.out.println(login.getPassword());
         Account account=accountService.getAccountByUseremail(login.getUseremail());
         if(account!=null) {
             logger.info("ACCOUNT FOUND");

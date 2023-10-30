@@ -31,7 +31,6 @@ public class AccountService {
 
         BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
         String encryptedPass=passwordEncoder.encode("123");
-        System.out.println(encryptedPass);
 
         add(new Account(
                 "1",
@@ -44,8 +43,8 @@ public class AccountService {
                 "lawyer at CBK",
                 skills,
                 "/a/ond.png",
-                "yes",
-                "no",
+                null,
+                null,
                 false,
                 5
         ));
@@ -61,8 +60,8 @@ public class AccountService {
                 "lawyer at CBC",
                 skills,
                 "/a/ond.png",
-                "yes",
-                "no",
+                null,
+                null,
                 false,
                 5
         ));
@@ -77,8 +76,8 @@ public class AccountService {
                 "lawyer at CBK",
                 skills,
                 "/a/ond.png",
-                "yes",
-                "no",
+                null,
+                null,
                 false,
                 5
         ));
@@ -93,8 +92,8 @@ public class AccountService {
                 "lawyer at CBK",
                 skills,
                 "/a/ond.png",
-                "yes",
-                "no",
+                null,
+                null,
                 false,
                 5
         ));
@@ -109,8 +108,8 @@ public class AccountService {
                 "lawyer at CBK",
                  skills,
                 "/a/ond.png",
-                "yes",
-                "no",
+                null,
+                null,
                 false,
                 5
         ));
@@ -118,7 +117,7 @@ public class AccountService {
 
     public ArrayList<Account> signedIn=new ArrayList<>();
 
-    Logger logger= LoggerFactory.getLogger(AccountService.class);
+    Logger logger=LoggerFactory.getLogger(AccountService.class);
     public Account create(Account account) {
         logger.info(String.valueOf(account.getId()));
         logger.info(account.getUseremail());
@@ -146,14 +145,15 @@ public class AccountService {
     }
 
     public Account getAccountByUseremail(String email) {
+        System.out.println(email);
         try {
             /**
             return accountRepository.findByUseremail(email);
              */
             Account foundAccount=null;
             for(Account account:this.accounts) {
-                if(account.getUseremail()==email) {
-                    foundAccount=account;
+                if(account.getUseremail().equals(email)) {
+                    return account;
                 }
             }
             return foundAccount;

@@ -1,7 +1,7 @@
 package com.branchin.beemylawyer.controllers;
 
 
-import com.branchin.beemylawyer.builders.Director;
+import com.branchin.beemylawyer.builders.AccountBuilder;
 import com.branchin.beemylawyer.classes.Account;
 import com.branchin.beemylawyer.classes.Lawyer;
 import com.branchin.beemylawyer.dto.*;
@@ -70,8 +70,24 @@ public class accountController {
         accountDTO.setId(String.valueOf(uuid));
         accountDTO.setPassword(encryptedPassword);
 
-        Director director=new Director();
-        Account newaccount=director.buildAccount(accountDTO);
+        /** builder pattern */
+        AccountBuilder builder=new AccountBuilder();
+        Account newaccount=builder.id(accountDTO.getId())
+                .stars(0)
+                .password(accountDTO.getPassword())
+                .useremail(accountDTO.getUseremail())
+                .fname(accountDTO.getFname())
+                .lname(accountDTO.getLname())
+                .phonenumber(accountDTO.getPhonenumber())
+                .bio(accountDTO.getBio())
+                .cposition(accountDTO.getCposition())
+                .skills(accountDTO.getSkills())
+                .pic(accountDTO.getPic())
+                .signIn(accountDTO.getSignIn())
+                .signOut(accountDTO.getSignOut())
+                .signedIn(accountDTO.isSignedIn())
+                .stars(accountDTO.getStars())
+                .build();
 
         ProfilDTO profilDTO=this.profilService.getProfilFromAccount(newaccount);
         simpMessagingTemplate.convertAndSend("/lawyers/public",profilDTO);
@@ -80,9 +96,15 @@ public class accountController {
 
     @PostMapping(value = "/account/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody LoginDTO login) {
+        System.out.println(login.getUseremail());
+        System.out.println(login.getPassword());
         Account account=accountService.getAccountByUseremail(login.getUseremail());
         if(account!=null) {
             logger.info("ACCOUNT FOUND");
+            System.out.println(account.getUseremail());
+            System.out.println(account.getPassword());
+            System.out.println(passwordEncoder.matches(login.getPassword(), account.getPassword()));
+            System.out.println("HHHH");
             if (passwordEncoder.matches(login.getPassword(), account.getPassword())) {
                 logger.info("MATCHES");
 

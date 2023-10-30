@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
 import org.springframework.beans.factory.annotation.Autowired;
  */
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,12 +25,18 @@ public class AccountService {
     AccountRepository accountRepository;
     */
     public ArrayList<Account> accounts=new ArrayList<>() {{
+
         ArrayList<String> skills=new ArrayList<>();
         skills.addAll(Arrays.asList("communication","analytics","law documentation"));
+
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        String encryptedPass=passwordEncoder.encode("123");
+        System.out.println(encryptedPass);
+
         add(new Account(
                 "1",
                 "mikaelst@hotmail.ca",
-                "abc",
+                 encryptedPass,
                 "mikael",
                 "steward",
                 "5147384985",
@@ -46,7 +53,7 @@ public class AccountService {
         add(new Account(
                 "2",
                 "ajlop@hotmail.ca",
-                "abc",
+                 encryptedPass,
                 "ajio",
                 "lopis",
                 "5147384985",
@@ -62,7 +69,7 @@ public class AccountService {
         add(new Account(
                 "3",
                 "akeol@hotmail.ca",
-                "abc",
+                 encryptedPass,
                 "akeol",
                 "alkos",
                 "5140948003",
@@ -72,13 +79,13 @@ public class AccountService {
                 "/a/ond.png",
                 "yes",
                 "no",
-                true,
+                false,
                 5
         ));
         add(new Account(
                 "4",
                 "angeki@hotmail.ca",
-                "abc",
+                encryptedPass,
                 "angekis",
                 "lapis",
                 "5147384985",
@@ -88,23 +95,23 @@ public class AccountService {
                 "/a/ond.png",
                 "yes",
                 "no",
-                true,
+                false,
                 5
         ));
         add(new Account(
                 "5",
                 "salami@hotmail.ca",
-                "abc",
+                 encryptedPass,
                 "salami",
                 "dorius",
                 "5144983908",
                 "professional lawyer since 2020",
                 "lawyer at CBK",
-                skills,
+                 skills,
                 "/a/ond.png",
                 "yes",
                 "no",
-                true,
+                false,
                 5
         ));
     }};
@@ -143,12 +150,13 @@ public class AccountService {
             /**
             return accountRepository.findByUseremail(email);
              */
-
-            Account foundAccount=this.accounts.stream().filter(account -> account.getUseremail()==email).findFirst().get();
-            if (foundAccount!=null) {
-                return foundAccount;
+            Account foundAccount=null;
+            for(Account account:this.accounts) {
+                if(account.getUseremail()==email) {
+                    foundAccount=account;
+                }
             }
-            return new Account();
+            return foundAccount;
         }
         catch(Exception e) {
             logger.debug(e.getMessage());

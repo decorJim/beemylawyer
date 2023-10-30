@@ -232,12 +232,8 @@ public class AccountService {
             /**
              return this.accountRepository.findById(id).get();
              */
-            for(Account account:this.accounts) {
-                if(account.getId().equals(id)) {
-                    return account;
-                }
-            }
-            return new Account();
+            Account account=this.accounts.stream().filter(acc->acc.getId().equals(id)).findFirst().get();
+            return account;
         }
         catch(Exception e) {
             logger.debug(e.getMessage());
